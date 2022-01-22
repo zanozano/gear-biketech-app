@@ -1,0 +1,27 @@
+{
+  "name": "bikeshop",
+  "version": "1.0.0",
+  "description": "Prueba Talento Digital",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zanozano/bikeshop.git"
+  },
+  "author": "Cristobal Manzano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zanozano/bikeshop/issues"
+  },
+  "homepage": "https://github.com/zanozano/bikeshop#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.1"
+  }
+}

@@ -1,0 +1,79 @@
+<!-- Selects -->
+<div class="row align-items-end">
+
+    <div class="col">
+        <label for="InputLabelTienda" class="form-label">Tienda</label>
+        <select id="stores" class="form-select" aria-label="Select Tienda">
+            <option selected>Seleccione</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <label for="InputLaberCategoria" class="form-label">Categoría</label>
+        <select id="categories" class="form-select" aria-label="Select Categoria">
+            <option selected>Seleccione</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <label for="InputLabelMarca" class="form-label">Marca</label>
+        <select id="brands" class="form-select" aria-label="Select Marca">
+            <option selected>Seleccione</option>
+        </select>
+    </div>
+
+    <div class="col-2">
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button">Buscar</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+    let storeUrl = 'http://localhost:3000/stores';
+    let categoryUrl = 'http://localhost:3000/categories';
+    let brandUrl = 'http://localhost:3000/brands';
+
+
+    let storesElements = [];
+    let categoryElements = [];
+    let brandElements = [];
+
+    let storeList = document.getElementById('stores');
+    let categoryList = document.getElementById('categories');
+    let brandList = document.getElementById('brands');
+
+    window.onload = getSelects();
+
+    async function getSelects() {
+        // store select
+        await axios.get(storeUrl).then((data) => {
+            storesElements = data.data
+
+            storesElements.forEach((e, i) => {
+                storeList.innerHTML += `<option value='${i}'>${e.store_name}</option>`
+            });
+        });
+        // category select
+        await axios.get(categoryUrl).then((data) => {
+            categoryElements = data.data
+
+            categoryElements.forEach((e, i) => {
+                categoryList.innerHTML += `<option value='${i}'>${e.category_name}</option>`
+            });
+        });
+        // brand select
+        await axios.get(brandUrl).then((data) => {
+            brandElements = data.data
+
+            brandElements.forEach((e, i) => {
+                brandList.innerHTML += `<option value='${i}'>${e.brand_name}</option>`
+            });
+        });
+
+    }
+
+</script>
