@@ -3,10 +3,12 @@ const express = require('express')
 const app = express();
 const { engine } = require('express-handlebars');
 
-// enviroment
-require('dotenv').config();
+// const path = require('path');
 
-const bodyParser = require('body-parser');
+// enviroment
+require('dotenv').config()
+
+// const bodyParser = require('body-parser');
 
 //
 // import
@@ -19,33 +21,40 @@ const {
     getProducts,
     getStaffs,
     getStotcks
-} = require('./consultas');
+} = require('./src/services/getRequests');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
 // start server
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT} and PID: ${process.pid}`)
 });
 
-// public
-app.use(express.static(__dirname + '/public'));
-
-// handlebars
-app.set('view engine', 'handlebars');
-
+//
 // handlebars config
 app.engine(
     'handlebars',
     engine({
         defaultLayout: 'main',
-        layoutsDir: __dirname + '/views/mainLayout',
+        layoutsDir: __dirname + '/src/views/layouts',
     })
 )
 
-// root
-app.get('/', (req, res) => {
-    res.render('Home');
-})
+// set handlebars
+app.set('view engine', 'handlebars');
 
+// set views
+app.set('views', './src/views');
+
+// public
+app.use(express.static(__dirname + '/public'));
+//--------------------------------------
+
+// root home
+app.get('/', (req, res) => {
+    res.render('home');
+});
 
 //GET
 //stores
@@ -58,7 +67,7 @@ app.get('/categories', async (req, res) => {
     const response = await getCategories();
     res.send(response);
 });
-//brands
+
 app.get('/brands', async (req, res) => {
     const response = await getBrands();
     res.send(response);
@@ -89,3 +98,5 @@ app.get('/stocks', async (req, res) => {
     res.send(response);
 });
 //--------------------------------------
+
+
