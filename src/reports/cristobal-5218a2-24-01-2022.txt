@@ -1,0 +1,7 @@
+
+      24-01-2022 
+
+      Cliente: cristobal 
+ 
+      Su compra es de $1000 pesos porcentaje, aplicando un descuento de 20%, da un total de: $800
+      

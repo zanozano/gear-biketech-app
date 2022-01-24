@@ -3,8 +3,6 @@ const express = require('express')
 const app = express();
 const { engine } = require('express-handlebars');
 
-// const path = require('path');
-
 // enviroment
 require('dotenv').config()
 
@@ -60,42 +58,42 @@ app.get('/', (req, res) => {
 //stores
 app.get('/stores', async (req, res) => {
     const response = await getStores();
-    res.send(response);
+    res.json(response);
 });
 //categories
 app.get('/categories', async (req, res) => {
     const response = await getCategories();
-    res.send(response);
+    res.json(response);
 });
 
 app.get('/brands', async (req, res) => {
     const response = await getBrands();
-    res.send(response);
+    res.json(response);
 });
 //customers
 app.get('/customers', async (req, res) => {
     const response = await getCustomers();
-    res.send(response);
+    res.json(response);
 });
 //orders
 app.get('/orders', async (req, res) => {
     const response = await getOrders();
-    res.send(response);
+    res.json(response);
 });
 //products
 app.get('/products', async (req, res) => {
     const response = await getProducts();
-    res.send(response);
+    res.json(response);
 });
 //orders
 app.get('/staffs', async (req, res) => {
     const response = await getStaffs();
-    res.send(response);
+    res.json(response);
 });
 //stocks
 app.get('/stocks', async (req, res) => {
     const response = await getStotcks();
-    res.send(response);
+    res.json(response);
 });
 //--------------------------------------
 
