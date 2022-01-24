@@ -17,7 +17,7 @@ if (client) {
   const file = `
       ${format(Date.now(), `dd-MM-yyyy`)} \n
       Cliente: ${name} \n 
-      Su compra es de $${value} pesos porcentaje, aplicando un descuento de ${discount}%, da un total de: $${discountAmount}
+      Su compra es de $${value} pesos, aplicando un descuento de ${discount}%, da un total de: $${discountAmount}
       `;
   //new file
   fs.writeFile(`${__dirname}/../reports/${name}-${uuidv4().slice(30)}-${format(Date.now(), `dd-MM-yyyy`)}.txt`, file, () => {

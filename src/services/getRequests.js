@@ -2,83 +2,99 @@
 const { pool } = require('../database/config');
 
 // getStores
-async function getStores() {
+const getStores = async () => {
+
     try {
         const result = await pool.query(`SELECT * FROM stores ORDER BY store_name ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // getCategories
-async function getCategories() {
+const getCategories = async () => {
+
     try {
         const result = await pool.query(`SELECT * FROM categories ORDER BY category_name ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // getBrands
-async function getBrands() {
+const getBrands = async () => {
+
     try {
         const result = await pool.query(`SELECT * FROM brands ORDER BY brand_name ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // getCustomers
-async function getCustomers() {
+const getCustomers = async () => {
+
     try {
-        const result = await pool.query(`SELECT * FROM customers`);
+        const result = await pool.query(`SELECT * FROM customers ORDER BY customer_name ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // getOrders
-async function getOrders() {
+const getOrders = async () => {
+
     try {
-        const result = await pool.query(`SELECT * FROM orders`);
+        const result = await pool.query(`SELECT * FROM orders ORDER BY order_id ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // getProducts
-async function getProducts() {
+const getProducts = async () => {
+
     try {
-        const result = await pool.query(`SELECT * FROM products`);
+        const result = await pool.query(`SELECT * FROM products ORDER BY product_id ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // getStaffs
-async function getStaffs() {
+const getStaffs = async () => {
+
     try {
-        const result = await pool.query(`SELECT * FROM staffs`);
+        const result = await pool.query(`SELECT * FROM staffs ORDER BY staff_id ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // getStotcks
-async function getStotcks() {
+const getStotcks = async () => {
+
     try {
-        const result = await pool.query(`SELECT * FROM stocks`);
+        const result = await pool.query(`SELECT * FROM stocks ORDER BY product_id ASC`);
         return result.rows;
     } catch (e) {
         console.log(e);
     }
+
 }
 
 // export

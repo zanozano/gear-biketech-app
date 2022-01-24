@@ -3,28 +3,28 @@
 
     <div class="col">
         <label for="InputLabelTienda" class="form-label">Tienda</label>
-        <select id="stores" class="form-select" aria-label="Select Tienda">
-            <option selected>Seleccione</option>
+        <select id="stores-select" class="form-select" aria-label="Select Tienda">
+            <option value="">Seleccione</option>
         </select>
     </div>
 
     <div class="col">
         <label for="InputLaberCategoria" class="form-label">Categoría</label>
-        <select id="categories" class="form-select" aria-label="Select Categoria">
-            <option selected>Seleccione</option>
+        <select id="categories-select" class="form-select" aria-label="Select Categoria">
+            <option value="">Seleccione</option>
         </select>
     </div>
 
     <div class="col">
         <label for="InputLabelMarca" class="form-label">Marca</label>
-        <select id="brands" class="form-select" aria-label="Select Marca">
-            <option selected>Seleccione</option>
+        <select id="brands-select" class="form-select" aria-label="Select Marca">
+            <option value="">Seleccione</option>
         </select>
     </div>
 
     <div class="col-2">
         <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="button">Buscar</button>
+            <button id="search" class="btn btn-primary" type="button">Buscar</button>
         </div>
     </div>
 
@@ -34,65 +34,126 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <hr class="my-5">
                 <th scope="col">Tienda</th>
-                <th scope="col">Cod. producto</th>
-                <th scope="col">Nombre</th>
+                <th scope="col">ID Producto</th>
+                <th scope="col">Nombre Producto</th>
                 <th scope="col">Inventario</th>
                 <th scope="col">Acción</th>
             </tr>
         </thead>
         <tbody id="table-body">
-
+            {{!-- content --}}
         </tbody>
     </table>
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 
-    let storeUrl = 'http://localhost:3000/stores';
-    let categoryUrl = 'http://localhost:3000/categories';
-    let brandUrl = 'http://localhost:3000/brands';
+    // html id
+    const storesSelect = document.getElementById("stores-select");
+    const categoriesSelect = document.getElementById("categories-select");
+    const brandsSelect = document.getElementById("brands-select");
+    const searchButton = document.getElementById("search");
+    const tableBody = document.getElementById("table-body");
 
+    //--------------------------------------------------------------------
 
-    let storesElements = [];
-    let categoryElements = [];
-    let brandElements = [];
+    // stores
+    const getStores = async () => {
+        const response = await fetch("http://localhost:3000/stores");
+        return response.json();
+    }
 
-    let storeList = document.getElementById('stores');
-    let categoryList = document.getElementById('categories');
-    let brandList = document.getElementById('brands');
+    // categories
+    const getCategories = async () => {
+        const response = await fetch("http://localhost:3000/categories");
+        return response.json();
+    }
 
-    window.onload = getSelects();
+    // brands
+    const getBrands = async () => {
+        const response = await fetch("http://localhost:3000/brands");
+        return response.json();
+    }
 
-    async function getSelects() {
-        // store select
-        await axios.get(storeUrl).then((data) => {
-            storesElements = data.data
-
-            storesElements.forEach((e, i) => {
-                storeList.innerHTML += `<option value='${i}'>${e.store_name}</option>`
-            });
+    // search products
+    const searchProducts = async (store, category, brand) => {
+        const response = await fetch(`http://localhost:3000/products/search`, {
+            method: "POST",
+            body: JSON.stringify({ category, store, brand }),
+            headers: { "content-type": "application/json" }
         });
-        // category select
-        await axios.get(categoryUrl).then((data) => {
-            categoryElements = data.data
+        return response.json();
+    }
 
-            categoryElements.forEach((e, i) => {
-                categoryList.innerHTML += `<option value='${i}'>${e.category_name}</option>`
-            });
-        });
-        // brand select
-        await axios.get(brandUrl).then((data) => {
-            brandElements = data.data
+    //--------------------------------------------------------------------
 
-            brandElements.forEach((e, i) => {
-                brandList.innerHTML += `<option value='${i}'>${e.brand_name}</option>`
-            });
+    const renderProductList = async () => {
+        const result = await searchProducts(storesSelect.value, categoriesSelect.value, brandsSelect.value);
+        
+        tableBody.innerHTML = "";
+
+        result.forEach(item => {
+            let trElement = document.createElement('tr');
+
+            // create headers
+            let storeElement = document.createElement('td');
+            let idElement = document.createElement('td');
+            let nameElement = document.createElement('td');
+            let inventoryElement = document.createElement('td');
+            let actionElement = document.createElement('td');
+            // create button element
+            let buttonElement = document.createElement('button');
+
+            // info element
+            storeElement.innerText = item.store_name;
+            idElement.innerText = item.product_id;
+            nameElement.innerText = item.product_name;
+            inventoryElement.innerText = item.quantity;
+
+            // button info element
+            buttonElement.classList.add("btn", "btn-primary", "btn-sm");
+            buttonElement.innerText = "Ver";
+            actionElement.appendChild(buttonElement);
+
+            // tr elements
+            trElement.appendChild(storeElement);
+            trElement.appendChild(idElement);
+            trElement.appendChild(nameElement);
+            trElement.appendChild(inventoryElement);
+            trElement.appendChild(actionElement);
+            tableBody.appendChild(trElement);
         });
 
     }
+
+    // promise all
+    (async () => {
+
+        const [stores, categories, brands] = await Promise.all([getStores(), getCategories(), getBrands(), renderProductList()]);
+
+        stores.forEach((item) => {
+            let option = document.createElement('option');
+            option.value = item.store_id;
+            option.innerHTML = item.store_name;
+            storesSelect.appendChild(option);
+        });
+
+        categories.forEach((item) => {
+            let option = document.createElement('option');
+            option.value = item.category_id;
+            option.innerHTML = item.category_name;
+            categoriesSelect.appendChild(option);
+        });
+
+        brands.forEach((item) => {
+            let option = document.createElement('option');
+            option.value = item.brand_id;
+            option.innerHTML = item.brand_name;
+            brandsSelect.appendChild(option);
+        });
+    })()
+
+    searchButton.addEventListener("click", async () => await renderProductList())
 
 </script>
