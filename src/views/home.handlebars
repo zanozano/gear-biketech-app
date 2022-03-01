@@ -90,7 +90,7 @@
 
     const renderProductList = async () => {
         const result = await searchProducts(storesSelect.value, categoriesSelect.value, brandsSelect.value);
-        
+
         tableBody.innerHTML = "";
 
         result.forEach(item => {
