@@ -5,6 +5,9 @@ const { engine } = require('express-handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const config = require('./config');
+const secretKey = config.secretKey;
+
 // enviroment
 require('dotenv').config();
 
