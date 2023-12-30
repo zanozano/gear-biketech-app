@@ -1,22 +1,22 @@
 {
-  "name": "bikeshop",
-  "version": "1.0.0",
-  "description": "Prueba Talento Digital",
-  "main": "app.js",
+  "name": "gear-biketech",
+  "version": "2.0.0",
+  "description": "Gear BikeTeck is a premier online hub dedicated to high-performance cycling equipment, seamlessly blending advanced technology with the thrill of cycling through a curated selection of innovative products.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zanozano/bikeshop.git"
+    "url": "https://github.com/zanozano/gear-biketech-app.git"
   },
-  "author": "",
+  "author": "Cristobal Manzano",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zanozano/bikeshop/issues"
+    "url": "https://github.com/zanozano/gear-biketech-app/issues"
   },
-  "homepage": "https://github.com/zanozano/bikeshop#readme",
+  "homepage": "https://github.com/zanozano/gear-biketech-app#readme",
   "dependencies": {
     "date-fns": "^2.28.0",
     "dotenv": "^14.2.0",
