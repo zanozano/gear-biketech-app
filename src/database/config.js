@@ -1,13 +1,11 @@
-// dependencies
 const { Pool } = require('pg');
 
-// pool config
 const pool = new Pool({
 	user: 'postgres',
 	host: 'localhost',
 	port: 5433,
-	password: 'postgres',
-	database: 'bikeshop',
+	password: '123456',
+	database: 'gear-biketech',
 });
 
 module.exports = { pool };
